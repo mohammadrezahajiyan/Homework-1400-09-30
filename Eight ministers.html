@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Eight ministers</title>
+<style>
+	table{
+    border: 1px solid black;
+		box-shadow: 0px 0px 50px 10px #A09494;
+}
+td.cell {
+	width: 50px;
+	height: 50px;
+	border: none;
+}
+
+td.black {
+	background-color: grey;
+}
+
+.skyblue {
+	background-color: skyblue !important; 
+}
+
+.selected {
+	background-color: green !important;
+}
+
+.messages {
+	text-align: center;
+}
+		</style>
+    </head>
+	<body>
+						<h5 class="messages">وزیر های باقی مانده: <h3 class="messages" id="info"></h3> </h5>
+                        <span class="messages" id="message"></span>
+					<br><br>
+					<table style="margin: auto;" border="0px;" id="bord">
+						<tr class="row1">
+							<td class="col1 cell" id="11">&nbsp;</td>
+							<td class="col2 cell black" id="12">&nbsp;</td>
+							<td class="col3 cell" id="13">&nbsp;</td>
+							<td class="col4 cell black" id="14">&nbsp;</td>
+							<td class="col5 cell" id="15">&nbsp;</td>
+							<td class="col6 cell black" id="16">&nbsp;</td>
+							<td class="col7 cell" id="17">&nbsp;</td>
+							<td class="col8 cell black" id="18">&nbsp;</td>
+						</tr>
+						<tr class="row2">
+							<td class="col1 cell black" id="21">&nbsp;</td>
+							<td class="col2 cell" id="22">&nbsp;</td>
+							<td class="col3 cell black" id="23">&nbsp;</td>
+							<td class="col4 cell" id="24">&nbsp;</td>
+							<td class="col5 cell black" id="25">&nbsp;</td>
+							<td class="col6 cell" id="26">&nbsp;</td>
+							<td class="col7 cell black" id="27">&nbsp;</td>
+							<td class="col8 cell" id="28">&nbsp;</td>
+						</tr>
+						<tr class="row3">
+							<td class="col1 cell" id="31">&nbsp;</td>
+							<td class="col2 cell black" id="32">&nbsp;</td>
+							<td class="col3 cell" id="33">&nbsp;</td>
+							<td class="col4 cell black" id="34">&nbsp;</td>
+							<td class="col5 cell" id="35">&nbsp;</td>
+							<td class="col6 cell black" id="36">&nbsp;</td>
+							<td class="col7 cell" id="37">&nbsp;</td>
+							<td class="col8 cell black" id="38">&nbsp;</td>
+						</tr>
+						<tr class="row4">
+							<td class="col1 cell black" id="41">&nbsp;</td>
+							<td class="col2 cell" id="42">&nbsp;</td>
+							<td class="col3 cell black" id="43">&nbsp;</td>
+							<td class="col4 cell" id="44">&nbsp;</td>
+							<td class="col5 cell black" id="45">&nbsp;</td>
+							<td class="col6 cell" id="46">&nbsp;</td>
+							<td class="col7 cell black" id="47">&nbsp;</td>
+							<td class="col8 cell" id="48">&nbsp;</td>
+						</tr>
+						<tr class="row5">
+							<td class="col1 cell" id="51">&nbsp;</td>
+							<td class="col2 cell black" id="52">&nbsp;</td>
+							<td class="col3 cell" id="53">&nbsp;</td>
+							<td class="col4 cell black" id="54">&nbsp;</td>
+							<td class="col5 cell" id="55">&nbsp;</td>
+							<td class="col6 cell black" id="56">&nbsp;</td>
+							<td class="cell" id="57">&nbsp;</td>
+							<td class="black" id="58">&nbsp;</td>
+						</tr>
+						<tr class="row6">
+							<td class="col1 cell black" id="61">&nbsp;</td>
+							<td class="col2 cell" id="62">&nbsp;</td>
+							<td class="col3 cell black" id="63">&nbsp;</td>
+							<td class="col4 cell" id="64">&nbsp;</td>
+							<td class="col5 cell black" id="65">&nbsp;</td>
+							<td class="col6 cell" id="66">&nbsp;</td>
+							<td class="col7 cell black" id="67">&nbsp;</td>
+							<td class="col8 cell" id="68">&nbsp;</td>
+						</tr>
+						<tr class="row7">
+							<td class="col1 cell" id="71">&nbsp;</td>
+							<td class="col2 cell black" id="72">&nbsp;</td>
+							<td class="col3 cell" id="73">&nbsp;</td>
+							<td class="col4 cell black" id="74">&nbsp;</td>
+							<td class="col5 cell" id="75">&nbsp;</td>
+							<td class="col6 cell black" id="76">&nbsp;</td>
+							<td class="col7 cell" id="77">&nbsp;</td>
+							<td class="col8 cell black" id="78">&nbsp;</td>
+						</tr>
+						<tr class="row8">
+							<td class="col1 cell black" id="81">&nbsp;</td>
+							<td class="col2 cell" id="82">&nbsp;</td>
+							<td class="col3 cell black" id="83">&nbsp;</td>
+							<td class="col4 cell" id="84">&nbsp;</td>
+							<td class="col5 cell black" id="85">&nbsp;</td>
+							<td class="col6 cell" id="86">&nbsp;</td>
+							<td class="col7 cell black" id="87">&nbsp;</td>
+							<td class="col8 cell" id="88">&nbsp;</td>
+						</tr>
+					</table>
+				<br>
+				<br>
+							<label><center>
+								<input type="checkbox" id="help">
+								راهنما
+							</center></label>
+				    </body>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script>
+let selectedCells = [];
+var info = 8;
+
+$( document ).ready(function() {
+	$('#info').html(info)
+});
+const resetBoard = function () {
+	selectedCells = [];
+	info = 8;
+	$('#info').html(info)
+	$('td.cell').removeClass('selected');
+	resetPaintBoard();
+	paintBoard(selectedCells);
+};
+const getNumber = function (string) {
+	return string.match(/\d+/)[0];
+};
+const isSelectedCell = function (cellId) {
+	return $('#' + cellId).attr('class').includes('selected');
+};
+
+const isNotClickable = function (cellId) {
+	return $('#' + cellId).attr('class').includes('noClickable');
+};
+
+const paintBoard = function (selectedCells) {
+	const helpActive = $('#help').is(":checked");
+	console.log('AYUDA: ' + helpActive);
+	selectedCells.forEach(function (cellId) {
+		const col = cellId.split('')[1];
+		const row = cellId.split('')[0];
+
+		const selectedRowCells = getCellsInRow(row);
+		const selectedColumnCells = getCellsInColumn(col);
+		const selectedDiagonalCells = getCellsInDigonal(cellId);
+		selectedRowCells.concat(selectedColumnCells).forEach(function (cell) {
+			if (helpActive) {
+				$('#' + cell).addClass('skyblue')
+			}
+			$('#' + cell).addClass('noClickable')
+		});
+		selectedDiagonalCells.forEach(function (cell) {
+			if (helpActive) {
+				$('#' + cell).addClass('skyblue')
+			}
+			$('#' + cell).addClass('noClickable')
+		});
+	});
+};
+const resetPaintBoard = function () {
+	$('td.cell').removeClass('skyblue');
+	$('td.cell').removeClass('noClickable')
+};
+
+const getCellsInRow = function (row) {
+	const thisCells = [];
+	for (var i = 1; i < 9; i++) {
+		var cellName = row + i;
+		thisCells.push(cellName);
+	}
+	return thisCells;
+};
+
+const getCellsInColumn = function (column) {
+	const thisCells = [];
+	for (var i = 1; i < 9; i++) {
+		var cellName = i + column;
+		thisCells.push(cellName);
+	}
+	return thisCells;
+};
+
+const getCellsInDigonal = function (cell) {
+	const thisCells = [];
+
+	function isLimit(cell) {
+		const cellSplited = cell.split('');
+		return cellSplited[0] <= '1' || cellSplited[0] >= '8' || cellSplited[1] <= '1'
+		|| cellSplited[1] >= '8';
+	}
+	for (var i = 1; i < 8; i++) {
+		var newCell = (parseInt(cell) + (i*11)).toString();
+		thisCells.push(newCell)
+		if (isLimit(newCell)) {
+			break;
+		}
+	}
+	for (var i = 1; i < 8; i++) {
+		var newCell = (parseInt(cell) - (i*11)).toString();
+		thisCells.push(newCell)
+		if (isLimit(newCell)) {
+			break;
+		}
+	}
+	for (var i = 1; i < 8; i++) {
+		var newCell = (parseInt(cell) + (i*9)).toString();
+		thisCells.push(newCell)
+		if (isLimit(newCell)) {
+			break;
+		}
+	}
+	for (var i = 1; i < 8; i++) {
+		var newCell = (parseInt(cell) - (i*9)).toString();
+		thisCells.push(newCell)
+		if (isLimit(newCell)) {
+			break;
+		}
+	}
+	return thisCells;
+};
+$('.cell').click(function () {
+	const cellId = $(this).attr('id');
+
+	if (isSelectedCell(cellId)) {
+
+		$(this).removeClass('selected');
+		var index = selectedCells.indexOf(cellId);
+		selectedCells.splice(index, 1);
+
+		info++
+	} else if (isNotClickable(cellId)) {
+		$('#message').html('<h4>وزیر را نمی توان اینجا گذاشت</h4>');
+		setTimeout(function () {
+			$('#message').html('');
+		}, 1000);
+	} else {
+
+		$(this).addClass('selected');
+		selectedCells.push(cellId);
+		info--
+	}
+
+	if (info === 0) {
+		$('#message').html('<h3 style="color:green;">برنده شدی:)</h3>');
+	}
+	resetPaintBoard();
+	paintBoard(selectedCells);
+	$('#info').html(info)
+})	
+</script>
+</html>
